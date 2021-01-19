@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
+import './list.scss';
 
 const TodoList = (props) => {
 
-  // console.log({props});
   return (
     <ul>
       {props.list.map(item => (
@@ -10,7 +10,7 @@ const TodoList = (props) => {
           className={`complete-${item.complete.toString()}`}
           key={item._id}
         >
-          <span onClick={() => props.handleComplete(item._id)}>
+          <span id="listSpan" onClick={() => props.handleComplete(item._id)}>
             {item.text} -- {item.assignee}
           </span>
         </li>

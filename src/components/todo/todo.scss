@@ -46,6 +46,7 @@ body, html {
         list-style-type:none;
         margin:0;
         padding:0;
+        border-radius: 5px;
 
         li {
 
@@ -53,7 +54,8 @@ body, html {
             display:flex;
             flex-direction:row;
             font-size: .75em;
-            margin: .75em .5em;
+            // margin: .75em .5em;
+            
 
             &.complete-true {
               span {
@@ -66,7 +68,7 @@ body, html {
             }
 
             span {
-                background: #e0e0e0;
+                background: rgb(92, 206, 142);
                 cursor:pointer;
                 &:hover {
                     background: pink;
@@ -75,7 +77,7 @@ body, html {
              span, input {
                  border: .5px solid #eee;
                  display:inline-block;
-                 padding: .2em .25em;
+                 padding: .5em .25em .5em .25em;
                  width: 300px;
              }
 

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import TodoForm from './form.js';
 import TodoList from './list.js';
-import NavBar from './nav';
-
+// import NavBar from './nav';
+import './todo-connected.scss';
 import './todo.scss';
 
 const todoAPI = 'https://api-js401.herokuapp.com/api/v1/todo';
@@ -85,12 +85,12 @@ const ToDo = () => {
     return () => {
       document.title = titleUpdate;
     }
-  })
+  },[list])
 
   return (
     <>
       <header>
-        <h2>
+        <h2 id="countH2">
           {count}
           {/* There are {list.filter(item => !item.complete).length} Items To Complete */}
         </h2>
