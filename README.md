@@ -6,7 +6,7 @@
 
 ### Links and Resources
 
-- [Deployed To GH Pages]()
+- [Deployed To GH Pages](https://simon-panek.github.io/todo/)
 
 #### How to initialize/run your application (where applicable)
 
