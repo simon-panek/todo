@@ -11,7 +11,7 @@ const TodoList = (props) => {
           key={item._id}
         >
           <span onClick={() => props.handleComplete(item._id)}>
-            {item.text}
+            {item.text} -- {item.assignee}
           </span>
         </li>
       ))}
