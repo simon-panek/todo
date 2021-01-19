@@ -73,9 +73,19 @@ const ToDo = () => {
     let countString= `There are ${list.filter(item => !item.complete).length} Items To Complete`
     setCount(countString);
   } 
-    
   useEffect(countFunction, [list]);
 
+  const [title, setTitle] = useState(document.title);
+
+  useEffect (() => {
+
+    let titleUpdate= `Todo: ${list.filter(item => !item.complete).length} / Done: ${list.filter(item => item.complete).length}`
+    setTitle(titleUpdate);
+
+    return () => {
+      document.title = titleUpdate;
+    }
+  })
 
   return (
     <>
