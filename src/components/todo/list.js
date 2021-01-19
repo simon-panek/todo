@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 const TodoList = (props) => {
 
-  console.log({props});
+  // console.log({props});
   return (
     <ul>
       {props.list.map(item => (

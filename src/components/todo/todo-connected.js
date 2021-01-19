@@ -12,7 +12,7 @@ const ToDo = () => {
   const [list, setList] = useState([]);
 
   const _addItem = (item) => {
-    console.log('ITEM @ _addItem: ', item);
+    // console.log('ITEM @ _addItem: ', item);
     item.due = new Date();
     fetch(todoAPI, {
       method: 'post',
@@ -65,11 +65,24 @@ const ToDo = () => {
 
   useEffect(_getTodoItems, []);
 
+  //// useEffect to update list count
+
+  const [count, setCount] = useState([]);
+  const countFunction = () => {
+
+    let countString= `There are ${list.filter(item => !item.complete).length} Items To Complete`
+    setCount(countString);
+  } 
+    
+  useEffect(countFunction, [list]);
+
+
   return (
     <>
       <header>
         <h2>
-          There are {list.filter(item => !item.complete).length} Items To Complete
+          {count}
+          {/* There are {list.filter(item => !item.complete).length} Items To Complete */}
         </h2>
       </header>
 
