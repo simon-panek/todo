@@ -37,17 +37,17 @@ const TodoForm = (props) => {
     <h3>Add Item</h3>
       <Form.Group controlId="formGroupEmail">
         <Form.Label>To Do Item</Form.Label>
-        <Form.Control type="text" placeholder="Item Details" name="text" placeholder="Add To Do List Item" onChange={handleInputChange}/>
+        <Form.Control data-testid='todoItem' type="text" placeholder="Item Details" name="text" placeholder="Add To Do List Item" onChange={handleInputChange}/>
       </Form.Group>
       <Form.Group controlId="formGroupPassword">
         <Form.Label>Assigned To</Form.Label>
-        <Form.Control placeholder="Assignee Name" type="text" name="assignee" onChange={handleInputChange}/>
+        <Form.Control data-testid='assignee' placeholder="Assignee Name" type="text" name="assignee" onChange={handleInputChange}/>
       </Form.Group>
         <Form.Group controlId="formBasicRange">
           {/* <Form.Label>Difficulty Rating</Form.Label> */}
-          <Form.Control type="range" defaultValue="1"  min="1" max="5" name="difficulty" onChange={handleInputChange}/>
+          <Form.Control data-testid='slider' type="range" defaultValue="1"  min="1" max="5" name="difficulty" onChange={handleInputChange}/>
         </Form.Group>
-      <Button variant="primary" type="submit">
+      <Button data-testid='submit' variant="primary" type="submit">
       Add Item
       </Button>
       
