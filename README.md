@@ -12,9 +12,7 @@
 
 - e.g. `npm start`
 
-#### Tests
-
-
 #### UML
 
-![UML Diagram](401-todo-lab-31.png)
+![UML Diagram Phase 1](401-todo-lab-31.png)
+![UML Diagram Phase 2](401-todo-lab-32.png)

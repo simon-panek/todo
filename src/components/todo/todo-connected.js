@@ -28,6 +28,33 @@ const ToDo = () => {
       .catch(console.error);
   };
 
+  const deleteItem = id => {
+
+    let item = list.filter(i => i._id === id)[0] || {};
+
+    if (item._id) {
+
+      item.complete = !item.complete;
+
+      let url = `${todoAPI}/${id}`;
+
+      fetch(url, {
+        method: 'delete',
+        mode: 'cors',
+        cache: 'no-cache',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(item)
+      })
+        .then(response => response.json())
+        .then(savedItem => {
+          setList(list.map(listItem => listItem._id === item._id ? savedItem : listItem));
+        })
+        .then(()=> _getTodoItems())
+        .catch(console.error);
+    }
+    
+  };
+
   const _toggleComplete = id => {
 
     let item = list.filter(i => i._id === id)[0] || {};
@@ -106,6 +133,7 @@ const ToDo = () => {
           <TodoList
             list={list}
             handleComplete={_toggleComplete}
+            handleDelete={deleteItem}
           />
         </div>
       </section>
