@@ -22,29 +22,13 @@ const ToDo = () => {
       difficulty: item.difficulty,
       text: item.text,
       __v: 0,
-              
-      // method:"post",
-      // mode:"cors",
-      // cache: 'no-cache',
-      // body: JSON.stringify(item),
-      // headers: { 'Content-Type': 'application/json' }
     })
-    // fetch(todoAPI, {
-    //   method: 'post',
-    //   mode: 'cors',
-    //   cache: 'no-cache',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify(item)
-    // })
       .then(response => {
         // console.log(response.data);
         let savedItem = response.data;
         // console.log({savedItem});
         setList([...list, savedItem])
       })
-      // .then(savedItem => {
-      //   setList([...list, savedItem])
-      // })
       .catch(console.error);
   };
  
@@ -113,25 +97,36 @@ const ToDo = () => {
   };
 
   //ajax
+  const _toggleComplete = id => {
+    let item = list.filter(i => i._id === id)[0] || {};
+    if (item._id) {
+      item.complete = !item.complete;
+      let url = `${todoAPI}/${id}`;
+      axios.put(url,{
+        complete: item.complete
+        }
+      )
+        .then(response => {
+          console.log({response});
+          setList(list.map(listItem => listItem._id === item._id ? response.data : listItem));
+        })
+        .catch(console.error);
+    }
+  };
+
+  //original
   // const _toggleComplete = id => {
   //   let item = list.filter(i => i._id === id)[0] || {};
   //   if (item._id) {
   //     item.complete = !item.complete;
   //     let url = `${todoAPI}/${id}`;
-  //     axios({
-  //       method: 'put', 
-  //       url: url,
-  //       data: {
-  //         body: JSON.stringify(item)
-  //       }
+  //     fetch(url, {
+  //       method: 'put',
+  //       mode: 'cors',
+  //       cache: 'no-cache',
+  //       headers: { 'Content-Type': 'application/json' },
+  //       body: JSON.stringify(item)
   //     })
-  //     // fetch(url, {
-  //     //   method: 'put',
-  //     //   mode: 'cors',
-  //     //   cache: 'no-cache',
-  //     //   headers: { 'Content-Type': 'application/json' },
-  //     //   body: JSON.stringify(item)
-  //     // })
   //       .then(response => response.json())
   //       .then(savedItem => {
   //         setList(list.map(listItem => listItem._id === item._id ? savedItem : listItem));
@@ -140,26 +135,6 @@ const ToDo = () => {
   //   }
   // };
 
-  //original
-  const _toggleComplete = id => {
-    let item = list.filter(i => i._id === id)[0] || {};
-    if (item._id) {
-      item.complete = !item.complete;
-      let url = `${todoAPI}/${id}`;
-      fetch(url, {
-        method: 'put',
-        mode: 'cors',
-        cache: 'no-cache',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(item)
-      })
-        .then(response => response.json())
-        .then(savedItem => {
-          setList(list.map(listItem => listItem._id === item._id ? savedItem : listItem));
-        })
-        .catch(console.error);
-    }
-  };
 //axios
   const _getTodoItems = () => {
     axios.get(todoAPI)
