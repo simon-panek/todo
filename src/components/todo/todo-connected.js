@@ -52,19 +52,30 @@ const ToDo = () => {
   // };
 
   // //ajax
+  const deleteItem = id => {
+    let item = list.filter(i => i._id === id)[0] || {};
+    if (item._id) {
+      // item.complete = !item.complete;
+      let url = `${todoAPI}/${id}`;
+      axios.delete(url)
+        .then(()=> _getTodoItems())
+        .catch(console.error);
+    }
+    
+  };
+  // original
   // const deleteItem = id => {
   //   let item = list.filter(i => i._id === id)[0] || {};
   //   if (item._id) {
   //     item.complete = !item.complete;
   //     let url = `${todoAPI}/${id}`;
-  //     axios.delete(url)
-  //     // fetch(url, {
-  //     //   method: 'delete',
-  //     //   mode: 'cors',
-  //     //   cache: 'no-cache',
-  //     //   headers: { 'Content-Type': 'application/json' },
-  //     //   body: JSON.stringify(item)
-  //     // })
+  //     fetch(url, {
+  //       method: 'delete',
+  //       mode: 'cors',
+  //       cache: 'no-cache',
+  //       headers: { 'Content-Type': 'application/json' },
+  //       body: JSON.stringify(item)
+  //     })
   //       .then(response => response.json())
   //       .then(savedItem => {
   //         setList(list.map(listItem => listItem._id === item._id ? savedItem : listItem));
@@ -72,29 +83,7 @@ const ToDo = () => {
   //       .then(()=> _getTodoItems())
   //       .catch(console.error);
   //   }
-    
   // };
-  // original
-  const deleteItem = id => {
-    let item = list.filter(i => i._id === id)[0] || {};
-    if (item._id) {
-      item.complete = !item.complete;
-      let url = `${todoAPI}/${id}`;
-      fetch(url, {
-        method: 'delete',
-        mode: 'cors',
-        cache: 'no-cache',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(item)
-      })
-        .then(response => response.json())
-        .then(savedItem => {
-          setList(list.map(listItem => listItem._id === item._id ? savedItem : listItem));
-        })
-        .then(()=> _getTodoItems())
-        .catch(console.error);
-    }
-  };
 
   //ajax
   const _toggleComplete = id => {
