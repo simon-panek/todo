@@ -1,4 +1,5 @@
 import React from 'react';
+import { ListGroup } from 'react-bootstrap';
 import './list.scss';
 
 const TodoList = (props) => {
@@ -6,7 +7,7 @@ const TodoList = (props) => {
   return (
     <ul>
       {props.list.map(item => (
-        <li
+        <li data-testid="list-item"
           className={`complete-${item.complete.toString()}`}
           key={item._id}
         >
@@ -21,3 +22,15 @@ const TodoList = (props) => {
 }
 
 export default TodoList;
+
+//return(
+//   <Container>
+//     <ListGroup as="ul">
+//       {props.list}
+//       <ListGroup as="li">
+//         <span></span>
+
+//       </ListGroup>
+//     </ListGroup>
+//   </Container>
+// )
