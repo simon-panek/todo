@@ -13,42 +13,59 @@ const ToDo = () => {
   const [list, setList] = useState([]);
 
   //axios
+  const _addItem = (item) => {
+    // console.log('ITEM @ _addItem: ', item);
+    item.due = new Date();
+    axios.post(todoAPI, {
+      assignee: item.assignee,
+      complete: false,
+      difficulty: item.difficulty,
+      text: item.text,
+      __v: 0,
+              
+      // method:"post",
+      // mode:"cors",
+      // cache: 'no-cache',
+      // body: JSON.stringify(item),
+      // headers: { 'Content-Type': 'application/json' }
+    })
+    // fetch(todoAPI, {
+    //   method: 'post',
+    //   mode: 'cors',
+    //   cache: 'no-cache',
+    //   headers: { 'Content-Type': 'application/json' },
+    //   body: JSON.stringify(item)
+    // })
+      .then(response => {
+        // console.log(response.data);
+        let savedItem = response.data;
+        // console.log({savedItem});
+        setList([...list, savedItem])
+      })
+      // .then(savedItem => {
+      //   setList([...list, savedItem])
+      // })
+      .catch(console.error);
+  };
+ 
+
+  //original
   // const _addItem = (item) => {
   //   // console.log('ITEM @ _addItem: ', item);
   //   item.due = new Date();
-  //   axios.get(todoAPI)
-  //   // fetch(todoAPI, {
-  //   //   method: 'post',
-  //   //   mode: 'cors',
-  //   //   cache: 'no-cache',
-  //   //   headers: { 'Content-Type': 'application/json' },
-  //   //   body: JSON.stringify(item)
-  //   // })
+  //   fetch(todoAPI, {
+  //     method: 'post',
+  //     mode: 'cors',
+  //     cache: 'no-cache',
+  //     headers: { 'Content-Type': 'application/json' },
+  //     body: JSON.stringify(item)
+  //   })
   //     .then(response => response.json())
   //     .then(savedItem => {
   //       setList([...list, savedItem])
   //     })
   //     .catch(console.error);
   // };
- 
-
-  //original
-  const _addItem = (item) => {
-    // console.log('ITEM @ _addItem: ', item);
-    item.due = new Date();
-    fetch(todoAPI, {
-      method: 'post',
-      mode: 'cors',
-      cache: 'no-cache',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(item)
-    })
-      .then(response => response.json())
-      .then(savedItem => {
-        setList([...list, savedItem])
-      })
-      .catch(console.error);
-  };
 
   // //ajax
   // const deleteItem = id => {
@@ -143,16 +160,27 @@ const ToDo = () => {
         .catch(console.error);
     }
   };
-
+//axios
   const _getTodoItems = () => {
-    fetch(todoAPI, {
-      method: 'get',
-      mode: 'cors',
-    })
-      .then(data => data.json())
-      .then(data => setList(data.results))
+    axios.get(todoAPI)
+      .then(response => {
+        let results = response.data.results;
+        console.log({results});
+        setList(results);
+      })
       .catch(console.error);
   };
+
+  //original
+  // const _getTodoItems = () => {
+  //   fetch(todoAPI, {
+  //     method: 'get',
+  //     mode: 'cors',
+  //   })
+  //     .then(data => data.json())
+  //     .then(data => setList(data.results))
+  //     .catch(console.error);
+  // };
 
   useEffect(_getTodoItems, []);
 
