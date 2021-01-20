@@ -4,6 +4,7 @@ import TodoList from './list.js';
 // import NavBar from './nav';
 import './todo-connected.scss';
 import './todo.scss';
+const axios = require('axios');
 
 const todoAPI = 'https://api-js401.herokuapp.com/api/v1/todo';
 
@@ -11,6 +12,27 @@ const ToDo = () => {
 
   const [list, setList] = useState([]);
 
+  //axios
+  // const _addItem = (item) => {
+  //   // console.log('ITEM @ _addItem: ', item);
+  //   item.due = new Date();
+  //   axios.get(todoAPI)
+  //   // fetch(todoAPI, {
+  //   //   method: 'post',
+  //   //   mode: 'cors',
+  //   //   cache: 'no-cache',
+  //   //   headers: { 'Content-Type': 'application/json' },
+  //   //   body: JSON.stringify(item)
+  //   // })
+  //     .then(response => response.json())
+  //     .then(savedItem => {
+  //       setList([...list, savedItem])
+  //     })
+  //     .catch(console.error);
+  // };
+ 
+
+  //original
   const _addItem = (item) => {
     // console.log('ITEM @ _addItem: ', item);
     item.due = new Date();
@@ -28,16 +50,35 @@ const ToDo = () => {
       .catch(console.error);
   };
 
+  // //ajax
+  // const deleteItem = id => {
+  //   let item = list.filter(i => i._id === id)[0] || {};
+  //   if (item._id) {
+  //     item.complete = !item.complete;
+  //     let url = `${todoAPI}/${id}`;
+  //     axios.delete(url)
+  //     // fetch(url, {
+  //     //   method: 'delete',
+  //     //   mode: 'cors',
+  //     //   cache: 'no-cache',
+  //     //   headers: { 'Content-Type': 'application/json' },
+  //     //   body: JSON.stringify(item)
+  //     // })
+  //       .then(response => response.json())
+  //       .then(savedItem => {
+  //         setList(list.map(listItem => listItem._id === item._id ? savedItem : listItem));
+  //       })
+  //       .then(()=> _getTodoItems())
+  //       .catch(console.error);
+  //   }
+    
+  // };
+  // original
   const deleteItem = id => {
-
     let item = list.filter(i => i._id === id)[0] || {};
-
     if (item._id) {
-
       item.complete = !item.complete;
-
       let url = `${todoAPI}/${id}`;
-
       fetch(url, {
         method: 'delete',
         mode: 'cors',
@@ -52,19 +93,42 @@ const ToDo = () => {
         .then(()=> _getTodoItems())
         .catch(console.error);
     }
-    
   };
 
+  //ajax
+  // const _toggleComplete = id => {
+  //   let item = list.filter(i => i._id === id)[0] || {};
+  //   if (item._id) {
+  //     item.complete = !item.complete;
+  //     let url = `${todoAPI}/${id}`;
+  //     axios({
+  //       method: 'put', 
+  //       url: url,
+  //       data: {
+  //         body: JSON.stringify(item)
+  //       }
+  //     })
+  //     // fetch(url, {
+  //     //   method: 'put',
+  //     //   mode: 'cors',
+  //     //   cache: 'no-cache',
+  //     //   headers: { 'Content-Type': 'application/json' },
+  //     //   body: JSON.stringify(item)
+  //     // })
+  //       .then(response => response.json())
+  //       .then(savedItem => {
+  //         setList(list.map(listItem => listItem._id === item._id ? savedItem : listItem));
+  //       })
+  //       .catch(console.error);
+  //   }
+  // };
+
+  //original
   const _toggleComplete = id => {
-
     let item = list.filter(i => i._id === id)[0] || {};
-
     if (item._id) {
-
       item.complete = !item.complete;
-
       let url = `${todoAPI}/${id}`;
-
       fetch(url, {
         method: 'put',
         mode: 'cors',
@@ -112,7 +176,7 @@ const ToDo = () => {
     return () => {
       document.title = titleUpdate;
     }
-  },[list])
+  }) //may need `[list]` here to prevent too many renders
 
   return (
     <>
