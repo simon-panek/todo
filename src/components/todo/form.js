@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React from 'react';
 // import Navbar from 'react-bootstrap/Navbar';
 // import Nav from 'react-bootstrap/Nav';
 import Form from 'react-bootstrap/Form';
@@ -8,28 +8,31 @@ import Button from 'react-bootstrap/Button';
 // import NavDropdown from 'react-bootstrap/NavDropdown';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './form.scss';
+import useForm from './hooks/useForm.js'
 
-// class TodoForm extends React.Component {
 const TodoForm = (props) => {
 
-  // constructor(props) {
-  //   super(props);
-  //   this.state = { item: {} };
-  // }
+  // const [item, setItem] = useState({});
 
-  const [item, setItem] = useState({});
+  // const handleInputChange = e => {
+  //   setItem({ ...item, [e.target.name]: e.target.value } );
+  // };
 
-  const handleInputChange = e => {
-    setItem({ ...item, [e.target.name]: e.target.value } );
-  };
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   e.target.reset();
+  //   props.sendTodo(item);
+  //   // const item = {};
+  //   setItem({});
+  // };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    e.target.reset();
+  // const [formData, setFormData] = useState({});
+  const [handleInputChange, handleSubmit] = useForm(sendItem);
+
+  function sendItem(item){
+    console.log('INSIDE todoItem', item);
     props.sendTodo(item);
-    // const item = {};
-    setItem({});
-  };
+  }
 
   return (
   <>

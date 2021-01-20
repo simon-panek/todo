@@ -1,5 +1,5 @@
 import React from 'react';
-import { ListGroup } from 'react-bootstrap';
+// import { ListGroup } from 'react-bootstrap';
 import './list.scss';
 
 const TodoList = (props) => {
@@ -14,6 +14,7 @@ const TodoList = (props) => {
           <span id="listSpan" onClick={() => props.handleComplete(item._id)}>
             {item.text} -- {item.assignee}
           </span>
+          <button id="deleteButton" type="submit" onClick={() => props.handleDelete(item._id)}>X</button> 
         </li>
       ))}
     </ul>
