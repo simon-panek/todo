@@ -2,7 +2,7 @@
 
 ## Project: ToDo
 
-### Author: Simon Panek, Mariko Alvarado, Ricardo Barcenas, Nathan Cox
+### Author: Simon Panek, Mariko Alvarado, Ricardo Barcenas, Nathan Cox, Michael Eclavea
 
 ### Links and Resources
 
@@ -16,3 +16,4 @@
 
 ![UML Diagram Phase 1](401-todo-lab-31.png)
 ![UML Diagram Phase 2](401-todo-lab-32.png)
+![UML Diagram Phase 3](401-todo-lab-33.png)

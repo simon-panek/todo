@@ -2,7 +2,7 @@ import React, {useContext, useEffect, useState} from 'react';
 // import { ListGroup } from 'react-bootstrap';
 import './list.scss';
 import { AppSettingsContext } from './context/appSettingsContext.js';
-import { setState } from 'react-jsonschema-form/lib/utils';
+// import { setState } from 'react-jsonschema-form/lib/utils';
 
 const TodoList = (props) => {
 
@@ -13,8 +13,7 @@ const TodoList = (props) => {
   
   const [nextList, setNextList] = useState([]);
 
-  
-  console.log('props.list ', props.list);
+  // console.log('props.list ', props.list);
   
   useEffect(()=>{
     calcPages();
@@ -27,7 +26,7 @@ const TodoList = (props) => {
     for (let i = 1; i <= numPages; i++){
       pageButtonArray.push(<button  key={i} name={i} onClick={nextPage}>Page {i}</button>);
     }
-    console.log('calcPages ', numPages);
+    // console.log('calcPages ', numPages);
     setNumPageCount([pageButtonArray]);
   }
  
@@ -37,7 +36,7 @@ const TodoList = (props) => {
     let newPage = props.list.slice((pageNumber-1)*appSettingsContext.maxDisplay, appSettingsContext.maxDisplay + (pageNumber-1)*appSettingsContext.maxDisplay);
 
     setNextList(newPage);
-    console.log('page ', page);
+    // console.log('page ', page);
   }
 
   
@@ -57,16 +56,6 @@ const TodoList = (props) => {
         ))}
       </ul> 
     <div>{numPageCount}</div>
-      {/* <div>
-        {props.list.length < appSettingsContext.maxDisplay ? '' : 
-        <div>
-            { for (let i = 1; i <= numPages; i++)(
-                <button>Page {i}</button>
-              )}
-          
-        </div>
-        }
-      </div>  */}
     </>
   );
   

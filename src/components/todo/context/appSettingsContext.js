@@ -1,4 +1,3 @@
-import reactDomTestUtilsProductionMin from "react-dom/cjs/react-dom-test-utils.production.min";
 import React, {setState, useState} from 'react';
 
 export const AppSettingsContext = React.createContext();
@@ -8,7 +7,7 @@ class AppSettings extends React.Component{
     super(props);
     this.state={
       maxDisplay: 4,
-      sortMethod: 'assignee',
+      sortMethod: 'text',
       hide: true,
     }
   }

@@ -1,5 +1,5 @@
-'use strict';
-import { useState } from 'react';
+import { useState, useContext, useEffect } from 'react';
+import { AppSettingsContext } from '../context/appSettingsContext.js';
 
 const axios = require('axios');
 
@@ -7,7 +7,16 @@ const todoAPI = 'https://api-js401.herokuapp.com/api/v1/todo';
 
 const useAjax = () => {
 
+  const appSettingsContext = useContext(AppSettingsContext);
   const [list, setList] = useState([]);
+
+  useEffect(()=>{ //THIS IS WORKING EXCEPT ON THE ORIGINAL RENDER??
+    // console.log({list});
+    list.sort((a,b) => {
+      return (a[appSettingsContext.sortMethod] > b[appSettingsContext.sortMethod])? 1 : -1;
+    })
+    setList(list);
+  });
 
   const _addItem = (item) => {
     // console.log('ITEM @ _addItem: ', item);
