@@ -18,6 +18,9 @@ const useAjax = () => {
     setList(list);
   });
 
+
+  //let token = cookie.load('auth'); <-- to bring in the token from the cookies
+
   const _addItem = (item) => {
     // console.log('ITEM @ _addItem: ', item);
     item.due = new Date();
