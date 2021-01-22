@@ -1,9 +1,11 @@
 import { useState, useContext, useEffect } from 'react';
 import { AppSettingsContext } from '../context/appSettingsContext.js';
+import cookie from 'react-cookies';
 
 const axios = require('axios');
 
-const todoAPI = 'https://api-js401.herokuapp.com/api/v1/todo';
+// const todoAPI = 'https://api-js401.herokuapp.com/api/v1/todo'; <-- Class provided
+const todoAPI = 'https://simonpanek-auth-api.herokuapp.com'; //<-- Auth API
 
 const useAjax = () => {
 
@@ -18,13 +20,19 @@ const useAjax = () => {
     setList(list);
   });
 
-
+//notes from Dina
   //let token = cookie.load('auth'); <-- to bring in the token from the cookies
+  let token = cookie.load('auth');
+
+  //const [list, setList] = useState([]);
+  //const appSettingsContext = useContext(AppSettingsContext);
+  // //todo: get the token from our login context
+  axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 
   const _addItem = (item) => {
     // console.log('ITEM @ _addItem: ', item);
     item.due = new Date();
-    axios.post(todoAPI, {
+    axios.post(`${todoAPI}/api/v2/todo`, {
       assignee: item.assignee,
       complete: false,
       difficulty: item.difficulty,
@@ -44,7 +52,7 @@ const useAjax = () => {
     let item = list.filter(i => i._id === id)[0] || {};
     if (item._id) {
       // item.complete = !item.complete;
-      let url = `${todoAPI}/${id}`;
+      let url = `${todoAPI}/api/v2/todo/${id}`;
       axios.delete(url)
         .then(()=> _getTodoItems())
         .catch(console.error);
@@ -55,7 +63,7 @@ const useAjax = () => {
     let item = list.filter(i => i._id === id)[0] || {};
     if (item._id) {
       item.complete = !item.complete;
-      let url = `${todoAPI}/${id}`;
+      let url = `${todoAPI}/api/v2/todo/${id}`;
       axios.put(url,{
         complete: item.complete
         }
@@ -69,7 +77,7 @@ const useAjax = () => {
   };
 
   const _getTodoItems = () => {
-    axios.get(todoAPI)
+    axios.get(`${todoAPI}/api/v2/todo/`)
       .then(response => {
         let results = response.data.results;
         // console.log({results});

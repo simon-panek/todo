@@ -117,6 +117,28 @@
 
 ```
 
+#### Mongoose Schema
+
+```js
+  text: { type: String, required: true },
+  assignee: { type: String },
+  complete: { type: Boolean, default:false },
+  difficulty: { type: Number, default: 1 },
+```
+
+Example
+
+```js
+{
+    "complete": false,
+    "difficulty": 9,
+    "_id": "600a84cc6c65db79ff5bd9c4",
+    "text": "finish this project",
+    "assignee": "simon",
+    "__v": 0
+}
+```
+
 #### UML
 
 ![UML Diagram Phase 1](401-todo-lab-31.png)
