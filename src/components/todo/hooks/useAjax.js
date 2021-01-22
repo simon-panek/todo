@@ -18,6 +18,9 @@ const useAjax = () => {
     setList(list);
   });
 
+
+  //let token = cookie.load('auth'); <-- to bring in the token from the cookies
+
   const _addItem = (item) => {
     // console.log('ITEM @ _addItem: ', item);
     item.due = new Date();
@@ -69,7 +72,7 @@ const useAjax = () => {
     axios.get(todoAPI)
       .then(response => {
         let results = response.data.results;
-        console.log({results});
+        // console.log({results});
         setList(results);
       })
       .catch(console.error);

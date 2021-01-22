@@ -7,7 +7,7 @@ class AppSettings extends React.Component{
     super(props);
     this.state={
       maxDisplay: 4,
-      sortMethod: 'text',
+      sortMethod: 'assignee',
       hide: true,
     }
   }
