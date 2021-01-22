@@ -3,7 +3,7 @@ import React, {useContext, useState} from 'react';
 import { LoginContext } from '../todo/context/loginContext.js';
 
 function Login(props) {
-  const [username, setUserName] = useState('');
+  const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
   const [role, setRole] = useState('user');
@@ -12,7 +12,7 @@ function Login(props) {
 
   const handleFormSubmit = (e) => { //send username and pword to context
     e.preventDefault();
-    loginContext.login(username, password, email);
+    loginContext.login(userName, password, email);
   }
 
   const handleNameChange = (e) => { //updates userName state on change of input field
@@ -31,11 +31,13 @@ function Login(props) {
     setRole(e.target.value);
   }
 
+  console.log({userName}, {password}, {email}, {role});
+
   return(
     <form onSubmit={handleFormSubmit}>
-      <input onChange={handleNameChange} type="text" name="name" placeholder="Name"/>
-      <input onChange={handlePasswordChange} type="password" name="password" placeholder="Password"/>
-      <input onChange={handleEmailChange} type="email" name="email" placeholder="Email"/>
+      <input onBlur={handleNameChange} type="text" name="name" placeholder="Name"/>
+      <input onBlur={handlePasswordChange} type="password" name="password" placeholder="Password"/>
+      <input onBlur={handleEmailChange} type="email" name="email" placeholder="Email"/>
       <label>Role</label>
       <select onChange={handleRoleChange}>
         <option value="user">"user"</option>

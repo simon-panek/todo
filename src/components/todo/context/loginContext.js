@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
 import jwt from 'jsonwebtoken';
 import cookie from 'react-cookies';
+import axios from 'axios';
 
-const API = process.env.REACT_APP_API;
+// const API = process.env.REACT_APP_API;
+const API = 'https://dina-auth-api.herokuapp.com';
 // REACT_APP_API=https://auth-server-401d39.herokuapp.com <-- Class provided
 // Auth API Route=https://simonpanek-auth-api.herokuapp.com/
+//https://dina-auth-api.herokuapp.com/signin user: dina  pass: potatoes admin
+
 
 export const LoginContext = React.createContext();
 
@@ -13,20 +17,20 @@ function LoginProvider(props){
   const [loggedIn, setLoggedIn] = useState(false);
 
   const login = (username, password) => {
-    fetch('${API}/signin', {
+    fetch(`${API}/signin`, {
       method: 'post',
-      mode: 'cors',
+      mode: 'cors', 
       cache: 'no-cache',
       headers: new Headers({
         'Authorization': `Basic ${btoa(`${username}:${password}`)}`
       }),
     })
     .then(response => {
-      console.log('server response ', response);
+      // console.log('response from server', response);
       return response.json();
     })
     .then(user => {
-      console.log({user});
+      console.log('user', user);
       validateToken(user.token);
     })
   }

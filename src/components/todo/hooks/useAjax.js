@@ -69,7 +69,7 @@ const useAjax = () => {
     axios.get(todoAPI)
       .then(response => {
         let results = response.data.results;
-        console.log({results});
+        // console.log({results});
         setList(results);
       })
       .catch(console.error);
