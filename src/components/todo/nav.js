@@ -6,6 +6,7 @@ import Nav from 'react-bootstrap/Nav';
 // import Button from 'react-bootstrap/Button';
 // import NavDropdown from 'react-bootstrap/NavDropdown';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Login from './login.js';
 
 const NavBar = (props) => {
 
@@ -31,6 +32,7 @@ const NavBar = (props) => {
         <Button variant="outline-success">Search</Button>
       </Form> */}
     </Navbar.Collapse>
+    <Login />
   </Navbar>
   );
   
