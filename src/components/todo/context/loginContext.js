@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import jwt from 'jsonwebtoken';
 import cookie from 'react-cookies';
-import axios from 'axios';
+// import axios from 'axios';
 
 // const API = process.env.REACT_APP_API;
 // const API = 'https://dina-auth-api.herokuapp.com'; //Dina's API
@@ -49,6 +49,13 @@ function LoginProvider(props){
   // user: {role: "admin", _id: "600a560efe5f030017267dc1", username: "dina",…}
   //
 
+  useEffect(()=>{
+    if(cookie.load('auth')){
+      let token = cookie.load('auth');
+      validateToken(token);
+    }
+  },[])
+
   const validateToken = (token) => {
     try {
       console.log('IN Validate Token ', {token});
@@ -57,22 +64,23 @@ function LoginProvider(props){
       setLogInState(true,token,user);
     } catch {
       setLogInState(false, null, {});
+      console.log('IN CATCH, THIS IS BAD')
     }
   }
 
-  console.log({loggedIn});
-
+  
   const setLogInState = (loggedIn, token, user) => {
     cookie.save('auth', token);
     setLoggedIn(true);
     setUser(user);
   }
-
+  
   const state = {
     user,
     loggedIn,
     login: login
   }
+  console.log('LOGINCONTEXT ', {loggedIn}); //This is true after signin, but after refreshing page to rerender it is no longer true
 
   return(
     <LoginContext.Provider value={state}>
