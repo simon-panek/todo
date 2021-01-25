@@ -3,15 +3,18 @@ import React, {useContext, useEffect, useState} from 'react';
 import './list.scss';
 import { AppSettingsContext } from './context/appSettingsContext.js';
 // import { setState } from 'react-jsonschema-form/lib/utils';
+import SignUp from './signUp.js';
+import cookie from 'react-cookies';
 
 const TodoList = (props) => {
 
   const appSettingsContext = useContext(AppSettingsContext);
+
   const [numPageCount, setNumPageCount] = useState([]);
+  const [nextList, setNextList] = useState([]);
+  const [renderSignUp, setRenderSignUp] = useState(true);
   
   let page = props.list.slice(0, appSettingsContext.maxDisplay);
-  
-  const [nextList, setNextList] = useState([]);
 
   // console.log('props.list ', props.list);
   
@@ -19,6 +22,16 @@ const TodoList = (props) => {
     calcPages();
     setNextList(page);
   },[props.list]);
+
+  // optionally render the SignUp form
+
+  let signedUpCookie = cookie.load('signedUp');
+
+  useEffect(()=>{
+    if(signedUpCookie){
+      setRenderSignUp(false);
+    }
+  });
 
   const calcPages = () => {
     let pageButtonArray = [];
@@ -42,6 +55,12 @@ const TodoList = (props) => {
   
   return (
     <>
+    <div>
+      { renderSignUp === false ? '' : 
+      <SignUp />
+      }
+    </div>
+    <div>
       <ul>
         {nextList.map(item => (
           <li data-testid="list-item"
@@ -55,7 +74,10 @@ const TodoList = (props) => {
           </li>
         ))}
       </ul> 
-    <div>{numPageCount}</div>
+      <div>
+      {numPageCount}
+      </div>
+    </div>
     </>
   );
   

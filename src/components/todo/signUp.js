@@ -1,5 +1,7 @@
 import React, {useContext, useState} from 'react';
 import { LoginContext } from './context/loginContext.js';
+import cookie from 'react-cookies';
+const axios = require('axios');
 
 function Login(props) {
   const [userName, setUserName] = useState('');
@@ -9,8 +11,11 @@ function Login(props) {
 
   const loginContext = useContext(LoginContext);
 
-  const handleFormSubmit = (e) => { //send username and pword to context
+  const handleFormSubmit = async (e) => { //send username and pword to context
     e.preventDefault();
+    await signUp(userName, password, role);
+    cookie.save('signedUp', true);
+    // console.log('HANDLE SUBMIT ', {userName}, {password}, {email}, {role})
     loginContext.login(userName, password, email);
   }
 
@@ -30,7 +35,21 @@ function Login(props) {
     setRole(e.target.value);
   }
 
-  console.log({userName}, {password}, {email}, {role});
+  // const todoAPI = 'https://simonpanek-auth-api.herokuapp.com'; //<-- Auth API
+
+  const signUp = (username, password, role) => {
+    axios.post('https://simonpanek-auth-api.herokuapp.com/signup',{
+      username: username,
+      password: password,
+      role: role
+      }
+    )
+    .then(response => {
+      console.log('response from signup server', response.data);
+    })
+  }
+
+  // console.log({userName}, {password}, {email}, {role});
 
   return(
     <form onSubmit={handleFormSubmit}>
