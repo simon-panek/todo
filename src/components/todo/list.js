@@ -5,6 +5,7 @@ import { AppSettingsContext } from './context/appSettingsContext.js';
 // import { setState } from 'react-jsonschema-form/lib/utils';
 import SignUp from './signUp.js';
 import cookie from 'react-cookies';
+import Auth from './auth.js';
 
 const TodoList = (props) => {
 
@@ -70,7 +71,9 @@ const TodoList = (props) => {
             <span id="listSpan" onClick={() => props.handleComplete(item._id)}>
               {item.text} -- {item.assignee}
             </span>
-            <button id="deleteButton" type="submit" onClick={() => props.handleDelete(item._id)}>X</button> 
+            <Auth capability='delete'>
+              <button id="deleteButton" type="submit" onClick={() => props.handleDelete(item._id)}>X</button> 
+            </Auth>
           </li>
         ))}
       </ul> 
