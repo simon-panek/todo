@@ -79,8 +79,8 @@ const useAjax = () => {
   const _getTodoItems = () => {
     axios.get(`${todoAPI}/api/v2/todo/`)
       .then(response => {
-        let results = response.data.results;
-        // console.log({results});
+        let results = response.data;
+        console.log({results});
         setList(results);
       })
       .catch(console.error);
